@@ -14,7 +14,7 @@ import android.view.ViewGroup;
  */
 public class NavFragment extends Fragment {
 
-
+    View layout;
     public NavFragment() {
         // Required empty public constructor
     }
@@ -23,7 +23,7 @@ public class NavFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View layout = inflater.inflate(R.layout.fragment_nav, container, false);
+        layout = inflater.inflate(R.layout.fragment_nav, container, false);
 
         return layout;
     }

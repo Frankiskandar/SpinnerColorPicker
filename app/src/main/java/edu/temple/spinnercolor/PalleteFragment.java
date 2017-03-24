@@ -17,6 +17,7 @@ import android.widget.GridView;
 public class PalleteFragment extends Fragment {
 
     ChangeColorInterface parent;
+    final String[] myColors = {"White", "Red", "Yellow", "Green", "Blue", "Black", "Cyan", "Magenta", "Green", "Gray"};
 
     public PalleteFragment() {
         // Required empty public constructor
@@ -31,7 +32,7 @@ public class PalleteFragment extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_pallete, container, false);
 
         final GridView mygrid = (GridView) layout.findViewById(R.id.grid_view);
-        final String[] myColors = {"White", "Red", "Yellow", "Green", "Blue", "Black", "Cyan", "Magenta", "Green", "Gray"};
+
         Resources res = getResources();
         String[] colorLabels = res.getStringArray(R.array.color_array);
 
@@ -43,6 +44,7 @@ public class PalleteFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //mylayout.setBackgroundColor(Color.parseColor(((TextView) view).getText().toString()));
                 ((ChangeColorInterface) getActivity()).ColorClicked(myColors[position]);
+
             }
         });
 
@@ -62,7 +64,7 @@ public class PalleteFragment extends Fragment {
 
 
     public interface ChangeColorInterface {
-        void ColorClicked(String color);
+        public void ColorClicked(String color);
     }
 
 }
