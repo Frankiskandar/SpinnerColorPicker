@@ -14,12 +14,12 @@ import android.widget.GridView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PalleteFragment extends Fragment {
+public class PaletteFragment extends Fragment {
 
     ChangeColorInterface parent;
     final String[] myColors = {"White", "Red", "Yellow", "Green", "Blue", "Black", "Cyan", "Magenta", "Green", "Gray"};
 
-    public PalleteFragment() {
+    public PaletteFragment() {
         // Required empty public constructor
     }
 
@@ -29,7 +29,7 @@ public class PalleteFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View layout = inflater.inflate(R.layout.fragment_pallete, container, false);
+        View layout = inflater.inflate(R.layout.fragment_palette, container, false);
 
         final GridView mygrid = (GridView) layout.findViewById(R.id.grid_view);
 

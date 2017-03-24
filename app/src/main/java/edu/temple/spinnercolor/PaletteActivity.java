@@ -4,21 +4,21 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-public class PaletteActivity extends AppCompatActivity implements PalleteFragment.ChangeColorInterface {
+public class PaletteActivity extends AppCompatActivity implements PaletteFragment.ChangeColorInterface {
 
 
-    NavFragment receiver;
+    CanvasFragment receiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_palette);
 
-        receiver = new NavFragment();
+        receiver = new CanvasFragment();
 
 
-        addFragment(new PalleteFragment(), R.id.pallete_frag);
-        addFragment(receiver, R.id.nav_frag);
+        addFragment(new PaletteFragment(), R.id.palette_frag);
+        addFragment(receiver, R.id.canvas_frag);
 
     }
 

@@ -12,10 +12,10 @@ import android.view.ViewGroup;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NavFragment extends Fragment {
+public class CanvasFragment extends Fragment {
 
     View layout;
-    public NavFragment() {
+    public CanvasFragment() {
         // Required empty public constructor
     }
 
@@ -23,7 +23,7 @@ public class NavFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        layout = inflater.inflate(R.layout.fragment_nav, container, false);
+        layout = inflater.inflate(R.layout.fragment_canvas, container, false);
 
         return layout;
     }
