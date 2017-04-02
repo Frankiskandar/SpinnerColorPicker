@@ -42,12 +42,23 @@ public class PaletteActivity extends AppCompatActivity implements PaletteFragmen
         getFragmentManager().executePendingTransactions();  //blocking call
     }
 
+    private void fragtrans(Fragment fragment, int containerId){
+        getFragmentManager()
+                .beginTransaction()
+                .add(containerId, fragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
     @Override
     public void ColorClicked(String color) {
         if (findViewById(R.id.canvas_frag)!=null) {
             receiver.changeColor(color);
         } else {
-            doTransition();
+            //doTransition();
+            fragtrans(receiver, R.id.palette_frag);
+            getFragmentManager().executePendingTransactions();
+            receiver.changeColor(color);
         }
     }
 }
