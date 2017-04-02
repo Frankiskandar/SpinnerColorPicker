@@ -6,9 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 
 public class PaletteActivity extends AppCompatActivity implements PaletteFragment.ChangeColorInterface {
 
-
     CanvasFragment receiver;
-    boolean twoPanes;
+    //boolean twoPanes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +16,7 @@ public class PaletteActivity extends AppCompatActivity implements PaletteFragmen
 
         receiver = new CanvasFragment();
 
+        //if canvas fragment xml exists, show both fragments
         if (findViewById(R.id.canvas_frag)!=null) {
             addFragment(new PaletteFragment(), R.id.palette_frag);
             addFragment(receiver, R.id.canvas_frag); }
@@ -33,16 +33,7 @@ public class PaletteActivity extends AppCompatActivity implements PaletteFragmen
                 .commit();
     }
 
-    private void doTransition(){
-        getFragmentManager()
-                .beginTransaction()
-                .add(R.id.palette_frag, receiver)
-                .addToBackStack(null)
-                .commit();
-        getFragmentManager().executePendingTransactions();  //blocking call
-    }
-
-    private void fragtrans(Fragment fragment, int containerId){
+    private void fragTransition(Fragment fragment, int containerId){
         getFragmentManager()
                 .beginTransaction()
                 .add(containerId, fragment)
@@ -54,9 +45,8 @@ public class PaletteActivity extends AppCompatActivity implements PaletteFragmen
     public void ColorClicked(String color) {
         if (findViewById(R.id.canvas_frag)!=null) {
             receiver.changeColor(color);
-        } else {
-            //doTransition();
-            fragtrans(receiver, R.id.palette_frag);
+        } else { //if portrait mode
+            fragTransition(receiver, R.id.palette_frag);
             getFragmentManager().executePendingTransactions();
             receiver.changeColor(color);
         }
