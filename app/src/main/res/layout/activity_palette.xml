@@ -20,8 +20,6 @@
 
     </FrameLayout>
 
-
-
     <FrameLayout
         android:id="@+id/canvas_frag"
         android:layout_width="0dp"

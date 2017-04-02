@@ -8,6 +8,7 @@ public class PaletteActivity extends AppCompatActivity implements PaletteFragmen
 
 
     CanvasFragment receiver;
+    boolean twoPanes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,9 +17,12 @@ public class PaletteActivity extends AppCompatActivity implements PaletteFragmen
 
         receiver = new CanvasFragment();
 
-
-        addFragment(new PaletteFragment(), R.id.palette_frag);
-        addFragment(receiver, R.id.canvas_frag);
+        if (findViewById(R.id.canvas_frag)!=null) {
+            addFragment(new PaletteFragment(), R.id.palette_frag);
+            addFragment(receiver, R.id.canvas_frag); }
+        else {
+            addFragment(new PaletteFragment(), R.id.palette_frag);
+        }
 
     }
 
@@ -29,8 +33,21 @@ public class PaletteActivity extends AppCompatActivity implements PaletteFragmen
                 .commit();
     }
 
+    private void doTransition(){
+        getFragmentManager()
+                .beginTransaction()
+                .add(R.id.palette_frag, receiver)
+                .addToBackStack(null)
+                .commit();
+        getFragmentManager().executePendingTransactions();  //blocking call
+    }
+
     @Override
     public void ColorClicked(String color) {
-        receiver.changeColor(color);
+        if (findViewById(R.id.canvas_frag)!=null) {
+            receiver.changeColor(color);
+        } else {
+            doTransition();
+        }
     }
 }
