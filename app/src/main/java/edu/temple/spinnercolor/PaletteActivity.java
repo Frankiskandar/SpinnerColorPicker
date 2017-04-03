@@ -1,54 +1,57 @@
 package edu.temple.spinnercolor;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import java.util.logging.Logger;
 
 public class PaletteActivity extends AppCompatActivity implements PaletteFragment.ChangeColorInterface {
 
     CanvasFragment receiver;
-    //boolean twoPanes;
+    boolean twoPanes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_palette);
 
+        twoPanes = (findViewById(R.id.canvas_frag)!= null);
         receiver = new CanvasFragment();
 
-        //if canvas fragment xml exists, show both fragments
-        if (findViewById(R.id.canvas_frag)!=null) {
-            addFragment(new PaletteFragment(), R.id.palette_frag);
-            addFragment(receiver, R.id.canvas_frag); }
-        else {
-            addFragment(new PaletteFragment(), R.id.palette_frag);
-        }
-
-    }
-
-    private void addFragment (Fragment fragment, int containerId){
+        PaletteFragment sender = new PaletteFragment();
         getFragmentManager()
                 .beginTransaction()
-                .replace(containerId, fragment)
+                .add(R.id.palette_frag, sender)
                 .commit();
+
+        receiver = new CanvasFragment();
+        //if canvas fragment exists show the fragment
+        if(twoPanes){
+            getFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.canvas_frag, receiver)
+                    .commit();
+        }
     }
 
-    private void fragTransition(Fragment fragment, int containerId){
+
+    private void fragTransition(){
+        Logger log = Logger.getAnonymousLogger();
+        log.info("fragTransition() method executed");
         getFragmentManager()
                 .beginTransaction()
-                .add(containerId, fragment)
+                .replace(R.id.palette_frag, receiver)
                 .addToBackStack(null)
                 .commit();
+        getFragmentManager().executePendingTransactions();
     }
 
     @Override
     public void ColorClicked(String color) {
-        if (findViewById(R.id.canvas_frag)!=null) {
-            receiver.changeColor(color);
-        } else { //if portrait mode
-            fragTransition(receiver, R.id.palette_frag);
-            getFragmentManager().executePendingTransactions();
-            receiver.changeColor(color);
+        if (!twoPanes){
+            fragTransition();
         }
+        receiver.changeColor(color);
+        getFragmentManager().executePendingTransactions();
     }
 }
